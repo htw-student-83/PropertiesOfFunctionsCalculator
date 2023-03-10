@@ -6,7 +6,8 @@ public class Calculation implements Vertrag {
 
     @Override
     public double calculateTheIntersectionWithXaxis(double gradient_f, double n) {
-        return -n/gradient_f;
+        double x_point = -n/gradient_f;
+        return Math.round(x_point * 100) / 100.;
     }
 
     @Override
@@ -77,17 +78,23 @@ public class Calculation implements Vertrag {
     @Override
     public String calculateTheOrthogonalLine(double gradient_f, double x_value, double y_value) {
         double reziprokeValue = -1/gradient_f;
-        double y_intersection =  y_value - (reziprokeValue * x_value);
-        return reziprokeValue + "x+" + y_intersection;
+        double reziprokeValueRound = Math.round(reziprokeValue*100)/100.;
+        double y_intersection =  y_value - (reziprokeValueRound * x_value);
+        if(y_intersection<0){
+            return reziprokeValueRound + "x" + y_intersection;
+        }else{
+            return reziprokeValueRound + "x+" + y_intersection;
+        }
     }
 
     @Override
     public String calculateTheParallelFunction(double gradient_f, double x_value, double y_value) {
         double y_intersection = y_value - (gradient_f * x_value);
-        if(y_intersection<0){
-            return gradient_f + "x" + y_intersection;
+        double y_intersectionRound = Math.round(y_intersection*100) / 100.;
+        if(y_intersectionRound<0){
+            return gradient_f + "x" + y_intersectionRound;
         }else{
-            return gradient_f + "x + " + y_intersection;
+            return gradient_f + "x+" + y_intersectionRound;
         }
     }
 }
